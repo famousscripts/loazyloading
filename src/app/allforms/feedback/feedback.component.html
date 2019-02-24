@@ -1,0 +1,30 @@
+<div class="blog-post">
+          <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-lg-8 col-md-6">
+                  <form #frm="ngForm" (ngSubmit)="OnSubmit(frm)" >
+                      <div class="form-group">
+                        <label for="">First Name</label>
+                        <input ngModel name="firstName"  required  id="firstName" type="text" 
+                        class="form-control" #fname="ngModel" >
+                        <span *ngIf="fname.touched && !fname.valid" class="text-danger">Text field can not be blanked</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input pattern="^[a-z]{1,6}_?\d{0,4}@.*\.[a-z]{2,}$" ngModel name="email"  required  id="email" type="text" 
+                        class="form-control" #eml="ngModel">
+                        <span *ngIf="eml.touched && !eml.valid" class="text-danger">Valid Email field required</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Feedback</label>
+                        <textarea ngModel name="feedback" id="feedback" cols="30" rows="10" class="form-control"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <button class="btn btn-info" [class.disabled]="!frm.valid">Submit</button>&nbsp;<button type="button" class="btn btn-secondary" (click)="formReset(frm)" >Reset</button>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+  

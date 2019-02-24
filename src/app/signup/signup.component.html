@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-lg-8">
+      <h3>Register</h3>
+      <form [formGroup]="signup" (ngSubmit)="onSubmit()">
+        
+          <div class="form-group">
+              <label for="">Full Name</label>
+              <input type="text"
+                     formControlName="fullname"
+                     name="fullname"
+                     class="form-control">
+              <span class="text text-danger"
+                    *ngIf="fullname.touched && fullname.invalid">
+                FullName is required. Can not be Blanked.
+              </span>
+          </div>
+
+          <div formGroupName="credentials">
+            <div class="form-group">
+                <label for="">Username</label>
+                <input type="text"
+                      formControlName="username"
+                      name="fullname"
+                      class="form-control">
+                <span class="text text-danger"
+                      *ngIf="username.touched && username.invalid">
+                      <span *ngIf="username.errors.required">Username Can not be blank.</span>
+                      <span *ngIf="username.errors.spaceNotAllowed">Username Can not contain space.</span>
+                </span>
+
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="text"
+                      formControlName="email"
+                      name="fullname"
+                      class="form-control">
+                <div class="text text-danger"
+                      *ngIf="email.touched && email.invalid">
+                      <span
+                      *ngIf="email.errors.required"
+                      >Email Can Not Be Blanked</span>
+                      <span *ngIf="email.errors.pattern">Not a valid email id.</span>                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="password"
+                      formControlName="password"
+                      name="fullname"
+                      class="form-control">
+                <span class="text text-danger"
+                      *ngIf="password.touched && password.invalid"
+                >
+                     <span *ngIf="password.errors.required">Password Can not be blanked.</span>
+                     <span *ngIf="password.errors.minlength">minimum length should be {{password.errors.minlength.requiredLength}} characters.</span>
+                </span>
+            </div>              
+          </div>
+          <div formArrayName="skills" class="form-group">
+                <label for="">Skills <span class="text-muted"> (Enter TAB key to add skills)</span></label>
+                <input type="text"                      
+                      name="skills"
+                      (blur)="addSkill(skl)" #skl
+                      class="form-control">
+          </div>
+          <ul class="list-group">
+            <li class="badge"
+                (click)="removeSkill(skl)"
+                *ngFor="let skill of skills.controls">{{skill.value}}</li>
+          </ul>
+            
+
+          <div class="form-group">
+            <button class="btn btn-primary" [disabled]="signup.invalid" >
+              Sign Up
+            </button>
+          </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
